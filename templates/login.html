@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function refreshCaptcha() {
+            // 添加时间戳以防止缓存
+            document.getElementById('captchaImage').src = '/captcha.png?' + new Date().getTime();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>文件上传系统</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <label>密码：</label>
+            <input type="password" name="password" required><br>
+            <div class="captcha-container">
+                <label>验证码：</label>
+                <img id="captchaImage" src="/captcha.png" alt="验证码">
+                <button type="button" onclick="refreshCaptcha()" class="refresh-btn">刷新</button>
+            </div>
+            <input type="text" name="captcha" placeholder="请输入验证码" required><br>
+            <button type="submit">登录</button>
+        </form>
+    </div>
+</body>
+</html>
